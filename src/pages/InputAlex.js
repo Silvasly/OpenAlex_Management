@@ -2,7 +2,7 @@
 import logo from './images/OpenAlex.png';
 import React from "react";
 
-function Input(props) {
+function Input({div}) {
   return (
     <>
       <div className="div">

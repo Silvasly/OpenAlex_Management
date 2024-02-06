@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
-function Manage() {
+function Manage({ onInput }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function Manage() {
         </div>
         <div className="sub-header">
           <h2>OpenAlex</h2>
-          <button className="input-button">+ Upload</button>
+          <button className="input-button" onClick={onInput}>+ Upload</button> 
         </div>
         
         <div className="table">
