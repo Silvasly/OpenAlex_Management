@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import Navbar from "./components/Navbar";
 import RegisterForm from "./pages/register";
-import Input from "./pages/InputAlex";
 import LoginForm from "./pages/login";
 import {
   BrowserRouter as Router,
@@ -16,8 +15,8 @@ import Sett from './pages/settings';
 
 function App() {
   const [isShowLogin, setIsShowLogin] = useState(false);
-  const [isShowRegister, setIsShowRegister] = useState(false); 
-  const [isShowInput, setIsShowInput] = useState(false)
+  const [isShowRegister, setIsShowRegister] = useState(false);
+
 
   const handleSignInClick = (event) => {
     event.preventDefault();
@@ -34,9 +33,7 @@ function App() {
         handleClose();
       } else if (isShowRegister) {
         handleCloseRegister();
-      } else if (isShowInput) {
-        handleCloseInput();
-      }
+      } 
     }
   };
   const handleRegisterClick = (event) => {
@@ -47,14 +44,7 @@ function App() {
   const handleCloseRegister = () => {
     setIsShowRegister(false);
   };
-  const handleInputClick = (event) => {
-    event.preventDefault();
-    setIsShowInput(true);
-  };
 
-  const handleCloseInput = () => {
-    setIsShowInput(false);
-  };
 
   return (
 <Router>
@@ -76,16 +66,10 @@ function App() {
   <Routes>
     <Route path="/" element={<Homes onSignIn={handleSignInClick} onRegister={handleRegisterClick} />} />
     <Route path="/about" element={<Abouts />} />
-    <Route path="/manages" element={<Manage onInput={handleInputClick}/>} />
+    <Route path="/manages" element={<Manage />} />
     <Route path="/settings" element={<Sett />} />
   </Routes>
-  {isShowInput && 
-    <div className="sidebar" onClick={handleBackgroundClick} >
-      <div className="sidebar-content" onClick={e => e.stopPropagation()}>
-        <Input onClose={handleCloseInput} />
-      </div>
-    </div>
-  }
+
 </Router>
   );
 }

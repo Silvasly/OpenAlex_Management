@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import Input from './InputAlex';  // Import the Input component
 
-function Manage({ onInput }) {
+function Manage() {
   const [data, setData] = useState([]);
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
+  const handleOpenSidebar = () => {
+    setIsSidebarOpen(true);
+  };
   useEffect(() => {
     axios.get('https://api.openalex.org/works')
       .then(response => {
@@ -35,7 +39,8 @@ function Manage({ onInput }) {
         </div>
         <div className="sub-header">
           <h2>OpenAlex</h2>
-          <button className="input-button" onClick={onInput}>+ Upload</button> 
+            <button className="input-button" onClick={handleOpenSidebar}>+ Upload</button> 
+              {isSidebarOpen && <Input isOpen={isSidebarOpen} onSidebarClose={() => setIsSidebarOpen(false)} />}
         </div>
         
         <div className="table">
@@ -57,8 +62,8 @@ function Manage({ onInput }) {
           ))}
         </div>
       </div>
-      <div className="div">
-        <div className="div-2">© Copyright 2024. All rights reserved.</div>
+      <div className="div-222">
+        <div className="div-222">© Copyright 2024. All rights reserved.</div>
         <div className="div-3">
           <img
             loading="lazy"
@@ -102,7 +107,7 @@ function Manage({ onInput }) {
           padding: 29px 24px 15px;
         }
         @media (max-width: 991px) {
-          .div {
+          .div-1 {
             max-width: 100%;
             padding: 0 20px;
           }
@@ -114,7 +119,7 @@ function Manage({ onInput }) {
           margin: 0;
           padding: 0;
         }
-        .div {
+        .div-222 {
           justify-content: space-between;
           display: flex;
           margin-top: 39px;
@@ -124,12 +129,12 @@ function Manage({ onInput }) {
           padding: 0 0px;
         }
         @media (max-width: 991px) {
-          .div {
+          .div-222 {
             max-width: 100%;
             flex-wrap: wrap;
           }
         }
-        .div-2 {
+        .div-2222 {
           color: #5f7896;
           flex-grow: 1;
           flex-basis: auto;

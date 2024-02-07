@@ -1,93 +1,138 @@
 
-import logo from './images/OpenAlex.png';
-import React from "react";
+import React, { useEffect, useRef } from 'react';
 
-function Input({div}) {
+function Input({ isOpen, onSidebarClose }) {
+  const sidebarRef = useRef();
+
+  useEffect(() => {
+    if (isOpen) {
+      sidebarRef.current.focus();
+    }
+  }, [isOpen]);
+
+  const handleClickOutside = (event) => {
+    if (event.target === event.currentTarget) {
+      onSidebarClose();
+    }
+  };
+
   return (
     <>
-      <div className="div">
-        <div className="div-2">
-          <div className="div-3">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8bfbd1b30a78e5443b73f33330ec4266c172136302184c9759cce88760cf987?"
-              className="img"
-            />
-            <div className="div-4">Input table</div>
-          </div>
-          <div className="div-5">
-            <div className="div-6">
-              <div className="div-7">Go back</div>
+    {isOpen && <div className="overlay" onClick={onSidebarClose} />}
+    <div className={`sidebar ${isOpen ? 'open' : ''}`} onClick={handleClickOutside} ref={sidebarRef} tabIndex="0">
+
+      <div className="sidebar-content">
+        <div className="div">
+          <div className="div-2">
+            <div className="div-3">
               <img
                 loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/dc283c330a076415ebc2b75d9e656e17c02b9e1c004a1686293f2e968caf621f?"
-                className="img-2"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8bfbd1b30a78e5443b73f33330ec4266c172136302184c9759cce88760cf987?"
+                className="img"
               />
+              <div className="div-4">Input table</div>
             </div>
-          </div>
-          <div className="div-8">
-            <div className="div-9">Institution </div>
-            <div className="div-10" />
-            <div className="div-11">Submit file</div>
-            <div className="div-12">Input file</div>
-            <div className="div-13">Title</div>
-            <div className="div-14">Input text</div>
-            <div className="div-15">Select country</div>
-            <div className="div-16">
-              <div className="div-17">Dropdown Text</div>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/a518f341132b27dcae6d4b95214f5bb9f6cdb3a37efe55472a028dc960698f81?"
-                className="img-3"
-              />
-            </div>
-            <div className="div-18">Status</div>
-            <div className="div-19">
-              <div className="div-20" />
-              <div className="div-21">Active</div>
-              <div className="div-22" />
-              <div className="div-23">Inactive</div>
-            </div>
-            <div className="div-24">Select year</div>
-            <div className="div-25">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f441f7376abe7d43ef3977f6e469697703df0166b1bb378289cd480cfa093e7?"
-                className="img-4"
-              />
-              <div className="div-26">May 2020</div>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/153416ee9beecb0e685c727f81884ef7f065c03650f6a6ddaf07bc4f5f777d71?"
-                className="img-5"
-              />
-            </div>
-          </div>
-          <div className="div-27">
-            <div className="div-28">Are you sure, you want to submit?</div>
-            <div className="div-29">Submit</div>
-          </div>
-          <div className="div-30">
-            <div className="div-31">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/67076bcaa7921711fe44cdd703e5ab1fa4637ea37096fe434cc5c425dee521e7?"
-                className="img-6"
-              />
-              <div className="div-32">
-                <div className="div-33">User</div>
-                <div className="div-34">UI/UX Designer</div>
+            <button onClick={onSidebarClose} className="div-5">
+              <div className="div-6">
+                <div  className="div-7">Go back</div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/dc283c330a076415ebc2b75d9e656e17c02b9e1c004a1686293f2e968caf621f?"
+                  className="img-2"
+                />
+              </div>
+            </button>
+            <div className="div-8">
+              <div className="div-9">Institution </div>
+              <div className="div-10" />
+              <div className="div-11">Submit file</div>
+              <div className="div-12">Input file</div>
+              <div className="div-13">Title</div>
+              <div className="div-14">Input text</div>
+              <div className="div-15">Select country</div>
+              <div className="div-16">
+                <div className="div-17">Dropdown Text</div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/a518f341132b27dcae6d4b95214f5bb9f6cdb3a37efe55472a028dc960698f81?"
+                  className="img-3"
+                />
+              </div>
+              <div className="div-18">Status</div>
+              <div className="div-19">
+                <div className="div-20" />
+                <div className="div-21">Active</div>
+                <div className="div-22" />
+                <div className="div-23">Inactive</div>
+              </div>
+              <div className="div-24">Select year</div>
+              <div className="div-25">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f441f7376abe7d43ef3977f6e469697703df0166b1bb378289cd480cfa093e7?"
+                  className="img-4"
+                />
+                <div className="div-26">May 2020</div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/153416ee9beecb0e685c727f81884ef7f065c03650f6a6ddaf07bc4f5f777d71?"
+                  className="img-5"
+                />
               </div>
             </div>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/76b93c449ca0f5eb5fd10e9ff0352b704e0390d1466a3bcc6bc203cc3c72dd30?"
-              className="img-7"
-            />
+            <div className="div-27">
+              <div className="div-28">Are you sure, you want to submit?</div>
+              <div className="div-29">Submit</div>
+            </div>
+            <div className="div-30">
+              <div className="div-31">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/67076bcaa7921711fe44cdd703e5ab1fa4637ea37096fe434cc5c425dee521e7?"
+                  className="img-6"
+                />
+                <div className="div-32">
+                  <div className="div-33">User</div>
+                  <div className="div-34">UI/UX Designer</div>
+                </div>
+              </div>
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/76b93c449ca0f5eb5fd10e9ff0352b704e0390d1466a3bcc6bc203cc3c72dd30?"
+                className="img-7"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <style jsx>{`
+        </div>
+
+    <style jsx>{`
+            .overlay {
+              position: fixed;
+              top: 0;
+              left: 0;
+              height: 100%;
+              width: 100%;
+              background-color: rgba(0, 0, 0, 0.4);
+              z-index: 1000;
+            }
+        .sidebar {
+          position: fixed;
+          height: 100%;
+          width: 0;
+          top: 0;
+          left: 0;
+          background-color: #fff;
+          overflow-x: hidden;
+          transition: 0.5s;
+          padding-left: 10px;
+          padding-right: 10px;
+          z-index: 1000;  // This would make the sidebar appear above all other elements
+        }
+
+        .sidebar.open {
+          width: 330px;  
+        }
         .div {
           justify-content: center;
           display: flex;
@@ -142,11 +187,19 @@ function Input({div}) {
           margin-top: 40px;
           width: 100%;
           font-size: 24px;
+          border: none;
+          outline: none;
+          cursor: pointer;
           color: #fff;
           font-weight: 500;
           white-space: nowrap;
           letter-spacing: -0.24px;
-          padding: 5px 60px;
+          padding: 5px 0px;
+          &:hover {
+            transition: all 0.2s ease-in-out;
+            background: #201564;
+            color: #9B9B9B;
+        }
         }
         @media (max-width: 991px) {
           .div-5 {
@@ -188,7 +241,7 @@ function Input({div}) {
           flex-direction: column;
           font-size: 20px;
           font-weight: 500;
-          padding: 23px 72px;
+          padding: 23px 0px;
         }
         @media (max-width: 991px) {
           .div-8 {
@@ -481,8 +534,8 @@ function Input({div}) {
           width: 44px;
           align-self: start;
         }
-      `}</style>
-    </>
+        `}</style>
+    </div></>
   );
 }
 
