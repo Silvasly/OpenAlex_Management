@@ -211,12 +211,16 @@ function Manage() {
           display: inline-block;
           font-size: 16px;
           margin: 4px 2px;
-          transition-duration: 0.4s;
+          box-shadow: 0 9px #999;
           &:hover {
-            transition: all 0.2s ease-in-out;
             background: #201564;
             color: #9B9B9B;
-        }
+          }
+        }        
+        .input-button:active {
+          background-color: #201564;
+          box-shadow: 0 5px #666;
+          transform: translateY(8px);
         }
 
         .table {

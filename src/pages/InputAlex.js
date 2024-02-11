@@ -28,7 +28,7 @@ function Input({ isOpen, onSidebarClose }) {
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8bfbd1b30a78e5443b73f33330ec4266c172136302184c9759cce88760cf987?"
-                className="img"
+                className="img-as"
               />
               <div className="div-4">Input table</div>
             </div>
@@ -82,7 +82,7 @@ function Input({ isOpen, onSidebarClose }) {
             </div>
             <div className="div-27">
               <div className="div-28">Are you sure, you want to submit?</div>
-              <div className="div-29">Submit</div>
+              <button className="div-29">Submit</button>
             </div>
             <div className="div-30">
               <div className="div-31">
@@ -106,32 +106,33 @@ function Input({ isOpen, onSidebarClose }) {
         </div>
         </div>
 
-    <style jsx>{`
-            .overlay {
-              position: fixed;
-              top: 0;
-              left: 0;
-              height: 100%;
-              width: 100%;
-              background-color: rgba(0, 0, 0, 0.4);
-              z-index: 1000;
-            }
+      <style jsx>{`
+        .overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          background-color: rgba(0, 0, 0, 0.4);
+          z-index: 1000;
+        }
         .sidebar {
           position: fixed;
           height: 100%;
-          width: 0;
+          width: 100%;
           top: 0;
           left: 0;
           background-color: #fff;
           overflow-x: hidden;
-          transition: 0.5s;
+          transition: all 0.5s;  
           padding-left: 10px;
           padding-right: 10px;
-          z-index: 1000;  // This would make the sidebar appear above all other elements
+          z-index: 1000;  
         }
 
         .sidebar.open {
           width: 330px;  
+          left: 0;
         }
         .div {
           justify-content: center;
@@ -146,7 +147,8 @@ function Input({ isOpen, onSidebarClose }) {
           background-color: #fff;
           display: flex;
           width: 100%;
-          padding-top: 50px;
+          padding-top: 20px;
+          padding-top: 20px;
           flex-direction: column;
         }
         @media (max-width: 991px) {
@@ -165,11 +167,12 @@ function Input({ isOpen, onSidebarClose }) {
           letter-spacing: 0.36px;
           padding: 0 20px;
         }
-        .img {
+        .img-as {
           aspect-ratio: 1.11;
           object-fit: auto;
           object-position: center;
-          width: 72px;
+          width: 100%;
+          max-width: 68px;
         }
         .div-4 {
           font-family: Poppins, sans-serif;
@@ -195,12 +198,19 @@ function Input({ isOpen, onSidebarClose }) {
           white-space: nowrap;
           letter-spacing: -0.24px;
           padding: 5px 0px;
+          box-shadow: 0 9px #999;
           &:hover {
             transition: all 0.2s ease-in-out;
             background: #201564;
             color: #9B9B9B;
+          }
         }
+        .div-5:active {
+          background-color: #201564;
+          box-shadow: 0 5px #666;
+          transform: translateY(8px);
         }
+
         @media (max-width: 991px) {
           .div-5 {
             max-width: 100%;
@@ -246,7 +256,7 @@ function Input({ isOpen, onSidebarClose }) {
         @media (max-width: 991px) {
           .div-8 {
             max-width: 100%;
-            padding: 0 20px;
+            padding: 0 0px;
           }
         }
         .div-9 {
@@ -450,7 +460,7 @@ function Input({ isOpen, onSidebarClose }) {
           .div-27 {
             margin-top: 40px;
             white-space: initial;
-            padding: 0 20px;
+            padding: 0 0px;
           }
         }
         .div-28 {
@@ -466,13 +476,25 @@ function Input({ isOpen, onSidebarClose }) {
         .div-29 {
           font-family: Poppins, sans-serif;
           border-radius: 20px;
-          box-shadow: 2px 4px 4px 0px rgba(79, 42, 234, 0.17);
           background-color: #fff;
           margin-top: 20px;
           justify-content: center;
           align-items: center;
+          border: none;
+          outline: none;
+          cursor: pointer;
           color: #4925e9;
-          padding: 15px 60px;
+          padding: 15px 60px;          
+          &:hover {
+            transition: all 0.2s ease-in-out;
+            background: #201564;
+            color: #9B9B9B;
+          }
+        }
+        div-29:active {
+          background: #201564;
+          color: #9B9B9B;
+          transform: translateY(8px);
         }
         @media (max-width: 991px) {
           .div-29 {
@@ -495,7 +517,7 @@ function Input({ isOpen, onSidebarClose }) {
             max-width: 100%;
             flex-wrap: wrap;
             margin-top: 40px;
-            padding: 0 20px;
+            padding: 0 0px;
           }
         }
         .div-31 {
