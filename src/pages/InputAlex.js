@@ -1,9 +1,14 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { addMonths, subMonths } from 'date-fns';
 
 function Input({ isOpen, onSidebarClose }) {
   const sidebarRef = useRef();
-
+  const [ fileName, setFileName ] = useState("Choose File");
+  const [selectedDate, setSelectedDate] = useState(null);
+  
   useEffect(() => {
     if (isOpen) {
       sidebarRef.current.focus();
@@ -16,6 +21,23 @@ function Input({ isOpen, onSidebarClose }) {
     }
   };
 
+  const handleFilePick = (event) => {
+    // If no file picked, reset to default
+    if (!event.target.files[0]) {
+      setFileName('Choose File');
+      return;
+    }
+    // Set file name
+    setFileName(event.target.files[0].name);
+  }
+
+  const handleNext = () => {
+    setSelectedDate(addMonths(selectedDate, 1));
+  }
+  
+  const handlePrev = () => {
+    setSelectedDate(subMonths(selectedDate, 1));
+  }
   return (
     <>
     {isOpen && <div className="overlay" onClick={onSidebarClose} />}
@@ -43,41 +65,58 @@ function Input({ isOpen, onSidebarClose }) {
               </div>
             </button>
             <div className="div-8">
-              <div className="div-9">Institution </div>
-              <div className="div-10" />
+              <div className="div-9">Author </div>
+              <input type="text" className="div-10" placeholder="Insert name.." />
+
               <div className="div-11">Submit file</div>
-              <div className="div-12">Input file</div>
+                <input type="file" name="file" style={{display: 'none'}} id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple onChange={handleFilePick} />
+                
+                  <label for="file" className="div-12">{fileName}</label>
+
               <div className="div-13">Title</div>
-              <div className="div-14">Input text</div>
+                <textarea rows="3" cols="10" className="div-14" placeholder="Insert title... " /> 
               <div className="div-15">Select country</div>
-              <div className="div-16">
-                <div className="div-17">Dropdown Text</div>
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/a518f341132b27dcae6d4b95214f5bb9f6cdb3a37efe55472a028dc960698f81?"
-                  className="img-3"
-                />
-              </div>
+              <select className="div-16">
+                  <option selected disabled >Select country... </option>
+                  <option>Country 1</option>
+                  <option>Country 2</option>
+               </select>
+
               <div className="div-18">Status</div>
               <div className="div-19">
-                <div className="div-20" />
-                <div className="div-21">Active</div>
-                <div className="div-22" />
-                <div className="div-23">Inactive</div>
-              </div>
+                 <input type="radio" id="active" name="status" value="active"  className="div-20"/>
+                 <label for="active" className='div-21'>Active</label>
+
+                 <input type="radio" id="inactive" name="status" value="inactive"  className="div-22"/>
+                 <label for="inactive" className='div-23'>Inactive</label>
+                 
+               </div>
               <div className="div-24">Select year</div>
               <div className="div-25">
-                <img
+                {/* <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f441f7376abe7d43ef3977f6e469697703df0166b1bb378289cd480cfa093e7?"
                   className="img-4"
-                />
-                <div className="div-26">May 2020</div>
-                <img
+                /> */}
+
+                  <button onClick={handlePrev} className="div-cursor-right">{"<"}</button>
+                  <DatePicker 
+                    selected={selectedDate} 
+                    onChange={date => setSelectedDate(date)} 
+                    dateFormat="MMMM yyyy"
+                    showMonthYearPicker
+                    className="div-26"
+                    shouldCloseOnSelect={true}
+                    isClearable={false}
+                    onKeyDown={(e) => e.preventDefault()}
+                  />
+                  <button onClick={handleNext}  className="div-cursor-left">{">"}</button>
+
+                {/* <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/153416ee9beecb0e685c727f81884ef7f065c03650f6a6ddaf07bc4f5f777d71?"
                   className="img-5"
-                />
+                /> */}
               </div>
             </div>
             <div className="div-27">
@@ -268,7 +307,7 @@ function Input({ isOpen, onSidebarClose }) {
           border-radius: 4px;
           border: 1px solid #010812;
           background-color: var(--09-System-02-Input-05-Success, #fff);
-          margin-top: 20px;
+          margin-top: 5px;
           height: 41px;
         }
         .div-11 {
@@ -278,12 +317,16 @@ function Input({ isOpen, onSidebarClose }) {
           margin-top: 36px;
         }
         .div-12 {
+          cursor: pointer;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
           border-radius: 4px;
           border: 1px dashed #060607;
-          background-color: #fff;
+          color: var(--09-System-02-Input-05-Success, #1e5eff);
           justify-content: center;
           align-items: center;
-          color: #1e5eff;
+          margin-top: 5px;
           text-align: center;
           padding: 12px 60px;
           font: 400 24px/100% Inter, -apple-system, Roboto, Helvetica,
@@ -303,11 +346,14 @@ function Input({ isOpen, onSidebarClose }) {
         .div-14 {
           border-radius: 4px;
           border: 1px solid #4b4e52;
-          background-color: #fff;
+          background-color: var(--09-System-02-Input-05-Success, #fff);
           align-items: start;
-          color: #a1a7c4;
+          margin-top: 5px;
           white-space: nowrap;
-          padding: 17px 60px 38px 16px;
+          resize: none;
+          white-space: pre-wrap;
+          line-height: 1.5;
+          padding: 17px 16px 38px 16px;
           font: 400 14px/143% Inter, -apple-system, Roboto, Helvetica,
             sans-serif;
         }
@@ -354,7 +400,7 @@ function Input({ isOpen, onSidebarClose }) {
           color: #000;
           font-family: Poppins, sans-serif;
           letter-spacing: -0.2px;
-          margin-top: 53px;
+          margin-top: 36px;
         }
         @media (max-width: 991px) {
           .div-18 {
@@ -404,41 +450,61 @@ function Input({ isOpen, onSidebarClose }) {
           margin-top: 36px;
         }
         .div-25 {
+          justify-content: center;
           border-radius: 4px;
           box-shadow: 0px 6px 24px 0px rgba(38, 44, 71, 0.16);
           background-color: #fff;
-          display: flex;
+          object-fit: auto;
+          object-position: center;
           margin-top: 4px;
-          justify-content: space-between;
-          gap: 20px;
+          display: flex;
+          align-items: center;
           font-size: 16px;
           color: #131523;
           font-weight: 700;
           text-align: center;
           line-height: 150%;
-          padding: 22px 23px 13px;
+          padding: 13px 23px 13px;
         }
         @media (max-width: 991px) {
           .div-25 {
-            padding: 0 20px;
+            padding: 0 0px;
           }
         }
-        .img-4 {
+        .div-cursor-right {
           aspect-ratio: 1;
+          cursor: pointer;
           object-fit: auto;
           object-position: center;
           width: 36px;
+          background: none;
+          border: none;
+          margin-right: 20px;
+          color: #1E5EFF;
+          font-size: 20px;
         }
-        .div-26 {
+        .div-cursor-right:active {
+          color: #163B97;
+        }
+        .div-26 .react-datepicker {
           font-family: Inter, sans-serif;
-          align-self: start;
+          align-self: center;
           margin-top: 14px;
         }
-        .img-5 {
+        .div-cursor-left {
           aspect-ratio: 1;
+          cursor: pointer;
           object-fit: auto;
           object-position: center;
           width: 36px;
+          background: none;
+          margin-left: 20px;
+          border: none;
+          color: #5932EA;
+          font-size: 20px;
+        }
+        .div-cursor-left:active {
+          color: #4E3C8F;
         }
         .div-27 {
           border-radius: 20px;

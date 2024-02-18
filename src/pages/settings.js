@@ -1,8 +1,18 @@
 
-import React from "react";
-
+import React, { useState } from "react";
 
 function Sett(props) {
+  const [image, setImage] = useState("https://cdn.builder.io/api/v1/image/assets/TEMP/71b2112072ff63bca4781d181b23ed9f4b4f6f55336128b0efc81711bc30f147?");
+
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
   return (
     <>
       <div className="div">
@@ -12,19 +22,33 @@ function Sett(props) {
           <div className="div-5">
             <div className="div-6">
               <div className="div-7">Profile</div>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/71b2112072ff63bca4781d181b23ed9f4b4f6f55336128b0efc81711bc30f147?"
-                className="img"
-              />
+              <label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="img"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
+                />
+                <img
+                  loading="lazy"
+                  src={image}
+                  className="img"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector('input[type="file"]').click();
+                  }}
+                />
+              </label>
               <div className="div-8">Web-designer</div>
+              <div className="div-Name">John doe</div>
             </div>
             <div className="div-9">
               <div className="div-10">
                 <div className="div-11">BASIC INFO</div>
                 <div className="div-12">
-                  <div className="div-13">CANCEL</div>
-                  <div className="div-14">SAVE</div>
+                  <button className="div-13">CANCEL</button>
+                  <button className="div-14">SAVE</button>
                 </div>
               </div>
               <div className="div-15" />
@@ -33,16 +57,16 @@ function Sett(props) {
                 <div className="div-18">LAST NAME</div>
               </div>
               <div className="div-19">
-                <div className="div-20" />
-                <div className="div-21" />
+                <input type="text" maxlength="7" placeholder="First name... " className="div-20" required minlength="4"  />
+                <input type="text" maxlength="15" placeholder="Last name... "  className="div-21" required minlength="4" />
               </div>
-              <div className="div-22">TITTLE</div>
-              <div className="div-23" />
+              <div className="div-22">ACAMEDIC TITTLE</div>
+              <input type="text" maxlength="50" placeholder="Title... "  className="div-23" />
               <div className="div-24">EMAIL</div>
-              <div className="div-25" />
+              <input type="email" maxlength="20" placeholder="Email... "   className="div-25" />
               <div className="div-26">PASSWORD</div>
               <div className="div-27" />
-              <div className="div-28" />
+              <input type="password" maxlength="12" placeholder="Password... "   className="div-28" />
             </div>
           </div>
         </div>
@@ -85,13 +109,13 @@ function Sett(props) {
           margin-top: 141px;
           width: 100%;
           flex-direction: column;
-          padding: 9px 23px 36px;
+          padding: 9px 0px 36px;
         }
         @media (max-width: 991px) {
           .div-2 {
             max-width: 100%;
             margin-top: 40px;
-            padding: 0 20px;
+            padding: 0 0px;
           }
         }
         .div-3 {
@@ -149,23 +173,42 @@ function Sett(props) {
           }
         }
         .div-7 {
+          align-self: center;
           font: 400 30px Helvetica, sans-serif;
         }
         .img {
+          cursor: pointer;
           aspect-ratio: 1.06;
           object-fit: auto;
           object-position: center;
           width: 158px;
           margin-top: 40px;
+          background: none;
+          border: none;
+          border-radius: 50%;
+          object-fit: cover; 
         }
         .div-8 {
-          align-self: stretch;
-          margin-top: 85px;
+          align-self: center;
+          margin-top: 55px;
+          align-items: center;
           font: 300 24px Helvetica, sans-serif;
         }
         @media (max-width: 991px) {
           .div-8 {
             margin-top: 40px;
+          }
+        }
+        .div-Name {
+          align-self: center;
+          margin-top: 20px;
+          color: #000;
+          align-items: center;
+          font: 300 24px Helvetica, sans-serif;
+        }
+        @media (max-width: 991px) {
+          .div-Name {
+            margin-top: 5px;
           }
         }
         .div-9 {
@@ -215,7 +258,19 @@ function Sett(props) {
           flex-grow: 1;
           justify-content: center;
           color: #231a1a;
+          border: none;
+          outline: none;
+          cursor: pointer;
           padding: 15px 16px;
+          &:hover {
+            transition: all 0.2s ease-in-out;
+            background: #231a1a;
+            color: #9B9B9B;
+          }
+        }
+        .div-13:active {
+          box-shadow: 0 5px #666;
+          transform: translateY(8px);
         }
         @media (max-width: 991px) {
           .div-13 {
@@ -225,11 +280,26 @@ function Sett(props) {
         .div-14 {
           font-family: Bree Serif, sans-serif;
           border-radius: 7px;
+          border: none;
+          outline: none;
+          cursor: pointer;
           background-color: #336dff;
           flex-grow: 1;
           justify-content: center;
           color: #fff;
           padding: 16px 27px;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          &:hover {
+            transition: all 0.2s ease-in-out;
+            background: #326dff;
+            color: #201564 ;
+          }
+        }
+        .div-14:active {
+          box-shadow: 0 5px #666;
+          transform: translateY(8px);
         }
         @media (max-width: 991px) {
           .div-14 {
@@ -253,7 +323,7 @@ function Sett(props) {
           display: flex;
           margin-top: 40px;
           justify-content: space-between;
-          gap: 20px;
+          gap: 298px;
           font-size: 14px;
           color: #000;
           font-weight: 400;
